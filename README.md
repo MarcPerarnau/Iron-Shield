@@ -25,8 +25,8 @@ Este sistema se compone de tres módulos principales:
 
 ---
 ## 📊 Dashboard
-Para visualizar las métricas de la red en **Grafana**, accede a: 
-⛓️‍💥 `http://<IP_DEL_SERVIDOR>:3000`
+Para visualizar las métricas de la red en **Grafana**, accede a: <br>
+⛓️‍💥 `http://<IP_DEL_SERVIDOR>:3000` <br>
 Credenciales por defecto:
 - **Usuario**: `iron_admin`
 - **Contraseña**: `iron_password`
