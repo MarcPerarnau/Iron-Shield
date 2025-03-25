@@ -281,3 +281,49 @@ Algunas VLANs usan DHCP, por lo que hay que configurarlo.
 ✅ **¡Tu entorno de red virtualizado en Proxmox + pfSense está listo!**  
 
 📌 **¿Necesitas ayuda con algo en específico?**
+
+---
+
+Sí, lo que mencionas es correcto. Primero instalas Proxmox con tu IP fija **100.80.8.180** y luego configuras la red antes de instalar pfSense. Ahora vamos a responder tus dudas:  
+
+---
+
+### **🔹 1. ¿Es normal que ya haya una red en bridge con IP 100.80.8.180?**
+✅ **Sí, es normal.** Cuando instalas Proxmox, crea un bridge de red automáticamente (generalmente `vmbr0`) y le asigna la IP que configuraste en la instalación.  
+
+📌 **¿Debes cambiar algo?**  
+No, puedes dejarlo así. `vmbr0` será la interfaz de administración de Proxmox y se usará para conectar tus VMs a la red física.  
+
+---
+
+### **🔹 2. ¿Debo activar "VLAN Aware" en Proxmox?**
+✅ **Sí, debes activarlo.**  
+
+📌 **¿Qué hace "VLAN Aware"?**  
+Permite que el bridge (`vmbr0`) **pase tráfico VLAN etiquetado** a las VMs. Como vamos a usar pfSense para gestionar las VLANs, **es necesario activarlo**.  
+
+📌 **Cómo activarlo:**  
+1️⃣ Ve a **Datacenter → Nodo (tu servidor) → System → Network**  
+2️⃣ Haz clic en `vmbr0`  
+3️⃣ Marca la opción **VLAN Aware**  
+4️⃣ Guarda y aplica los cambios.  
+
+---
+
+### **🔹 3. ¿Debo asignarle una IP a `vmbr0` o dejarla en blanco?**
+🔹 Si `vmbr0` será solo para VLANs, **deja la IP en blanco**.  
+🔹 Si necesitas conectarte a Proxmox a través de esta interfaz (administración), **mantén la IP 100.80.8.180** como está.  
+
+---
+
+### **🔹 4. ¿Tengo que crear más bridges (`vmbr1`, `vmbr2`, etc.) o solo usar `vmbr0`?**
+Usaremos **solo `vmbr0` con VLANs**, no hace falta crear más bridges. pfSense se encargará de separar las redes con VLANs.  
+
+---
+
+## **📌 ¿Siguiente paso?**
+1️⃣ **Confirma que `vmbr0` está configurado con VLAN Aware activado**  
+2️⃣ **Instala pfSense en una VM y conecta sus interfaces a `vmbr0`**  
+3️⃣ **Configura VLANs dentro de pfSense**  
+
+💡 **¿Tienes más dudas antes de seguir?**
